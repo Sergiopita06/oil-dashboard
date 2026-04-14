@@ -60,18 +60,25 @@ fig1.add_trace(go.Scatter(x=df["period"], y=df["WTI"],   name="WTI",   line=dict
 fig1.add_trace(go.Scatter(x=df["period"], y=df["Brent"], name="Brent", line=dict(color="#3B8BD4", width=2)))
 
 for ev in EVENTOS:
-    fig1.add_vline(
+    fig1.add_shape(
+        type="line",
+        x0=ev["fecha"], x1=ev["fecha"],
+        y0=0, y1=1,
+        xref="x", yref="paper",
+        line=dict(color=ev["color"], width=1.5, dash="dash")
+    )
+    fig1.add_annotation(
         x=ev["fecha"],
-        line_dash="dash",
-        line_color=ev["color"],
-        line_width=1.5,
-        annotation_text=ev["label"],
-        annotation_position="top left",
-        annotation_font_size=9,
-        annotation_font_color=ev["color"]
+        y=1,
+        yref="paper",
+        text=ev["label"],
+        showarrow=False,
+        textangle=-90,
+        font=dict(size=8, color=ev["color"]),
+        yanchor="top"
     )
 
-fig1.update_layout(height=500, template="plotly_dark", showlegend=True)
+fig1.update_layout(height=550, template="plotly_dark", showlegend=True)
 st.plotly_chart(fig1, use_container_width=True)
 
 # Leyenda de colores
