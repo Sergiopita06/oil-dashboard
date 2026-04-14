@@ -59,7 +59,7 @@ fig1 = go.Figure()
 fig1.add_trace(go.Scatter(x=df["period"], y=df["WTI"],   name="WTI",   line=dict(color="#E8593C", width=2)))
 fig1.add_trace(go.Scatter(x=df["period"], y=df["Brent"], name="Brent", line=dict(color="#3B8BD4", width=2)))
 
-for ev in EVENTOS:
+for i, ev in enumerate(EVENTOS):
     fig1.add_shape(
         type="line",
         x0=ev["fecha"], x1=ev["fecha"],
@@ -69,15 +69,16 @@ for ev in EVENTOS:
     )
     fig1.add_annotation(
         x=ev["fecha"],
-        y=1,
+        y=0.98 - (i % 3) * 0.12,  # alterna altura para que no se solapen
         yref="paper",
         text=ev["label"],
         showarrow=False,
-        textangle=-90,
-        font=dict(size=8, color=ev["color"]),
-        yanchor="top"
+        textangle=0,
+        font=dict(size=9, color=ev["color"]),
+        bgcolor="rgba(0,0,0,0.6)",
+        borderpad=3,
+        xanchor="left"
     )
-
 fig1.update_layout(height=550, template="plotly_dark", showlegend=True)
 st.plotly_chart(fig1, use_container_width=True)
 
