@@ -54,3 +54,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 st.caption("Datos: Yahoo Finance · Actualización: cada hora · Desarrollado por [tu nombre]")
+import os
+os.system('git add app.py')
+os.system('git commit -m "fix: manejo de datos vacios y multi-index"')
+os.system('git push')
